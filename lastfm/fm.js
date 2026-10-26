@@ -44,7 +44,7 @@ You can connect your **Last.fm** using \`${prefix2}lastfm set <username>\``
             fmUser = dbUser.lastFM;
         }
         var options = {
-            uri: "http://ws.audioscrobbler.com/2.0/?method=user.getrecenttracks&user=" + fmUser + "&api_key=43693facbb24d1ac893a7d33846b15cc&format=json&extended=1",
+            uri: "http://ws.audioscrobbler.com/2.0/?method=user.getrecenttracks&user=" + fmUser + "&api_key=" + process.env.LASTFM_API_KEY + "&format=json&extended=1",
             headers: {
                 'Connection': 'keep-alive',
                 'Accept-Encoding': '',
@@ -56,7 +56,7 @@ You can connect your **Last.fm** using \`${prefix2}lastfm set <username>\``
             .then(function (lastfm) {
                 var trackName = lastfm.recenttracks.track[0].name.replace(/ /g, "+");
                 var artistName = lastfm.recenttracks.track[0].artist.name.replace(' ', '+');
-                var trackURL = "http://ws.audioscrobbler.com/2.0/?method=track.getInfo&username=" + fmUser + "&api_key=43693facbb24d1ac893a7d33846b15cc&artist=" + artistName + "&track=" + trackName + "&format=json&autocorrect=1";
+                var trackURL = "http://ws.audioscrobbler.com/2.0/?method=track.getInfo&username=" + fmUser + "&api_key=" + process.env.LASTFM_API_KEY + "&artist=" + artistName + "&track=" + trackName + "&format=json&autocorrect=1";
                 var options2 = {
                     uri: trackURL,
                     headers: {
@@ -82,7 +82,7 @@ You can connect your **Last.fm** using \`${prefix2}lastfm set <username>\``
                         let trackName = "";
                         let cover = "";
                         let album = "";
-                        const result = request.get(`http://ws.audioscrobbler.com/2.0/?method=user.getRecentTracks&user=${fmUser}&api_key=43693facbb24d1ac893a7d33846b15cc&format=json&limit=1`)
+                        const result = request.get(`http://ws.audioscrobbler.com/2.0/?method=user.getRecentTracks&user=${fmUser}&api_key=${process.env.LASTFM_API_KEY}&format=json&limit=1`)
                         result.then(res => {
                             const track = res.body.recenttracks.track[0];
                             artist = track.artist["#text"];
