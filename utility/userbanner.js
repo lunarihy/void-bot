@@ -1,4 +1,3 @@
-const config = require('../../config.json')
 const fetch = require('node-fetch')
 const { MessageEmbed } = require('discord.js')
 const { color } = require("../../config.json");
@@ -17,7 +16,7 @@ module.exports = {
     let response = fetch(`https://discord.com/api/v8/users/${uid}`, {
       method: 'GET',
       headers: {
-        Authorization: `Bot ${config.token}`
+        Authorization: `Bot ${process.env.DISCORD_TOKEN}`
       }
     })
     let receive = ''
@@ -30,7 +29,7 @@ module.exports = {
             let response2 = fetch(`https://cdn.discordapp.com/banners/${uid}/${receive}.gif`, {
               method: 'GET',
               headers: {
-                Authorization: `Bot ${config.token}`
+                Authorization: `Bot ${process.env.DISCORD_TOKEN}`
               }
             })
             let statut = ''

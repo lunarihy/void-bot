@@ -1,4 +1,5 @@
-const { token, default_prefix, color } = require("./config.json");
+require("dotenv").config();
+const { default_prefix, color } = require("./config.json");
 const Discord = require("discord.js");
 require("@haileybot/sanitize-role-mentions")();
 const client = new Discord.Client({
@@ -7,7 +8,7 @@ const client = new Discord.Client({
   partials: ['MESSAGE', 'REACTION']
 });
 const mongoose = require('mongoose')
-mongoose.connect('mongo url', {
+mongoose.connect(process.env.MONGO_URI, {
   useUnifiedTopology: true,
   useNewUrlParser: true
 }).then(console.log('connected to mongoose'))
@@ -22,4 +23,4 @@ module.exports = client;
 });
 Discord.Constants.DefaultOptions.ws.properties.$browser = "Discord Android"
 
-client.login(token)
+client.login(process.env.DISCORD_TOKEN)
